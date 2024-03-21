@@ -118,7 +118,7 @@ def create_post():
     return render_template('create_post.html')
 
 
-@user_bp.route('/posts/<int:post_id>/edit', methods=['POST'])
+@user_bp.route('/posts/<int:post_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
     # Retrieve the post from the database
@@ -143,24 +143,30 @@ def delete_post(post_id):
 @login_required
 def add_comment(post_id):
     # Handle comment form submission
-    return render_template('user.posts')
+    return render_template('comments.html')
 
 
 @user_bp.route('/comments/<int:comment_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_comment(comment_id):
-    # Retrieve the post from the database
-    post = Post.query.get_or_404(post_id)
+    # Retrieve the commentt from the database
+    comment = comment.query.get_or_404(post_id)
 
-    # Handle post editing form submission
-    return render_template('edit_post.html', pst=post)
+    if request.method == 'POST':
+        # Handle comment editing form submission
+        db.session.commit()
+        flash('Comment edited successfully.', 'success')
+        return redirect(url_for('user.posts'))
+
+    # Render the edit comment form
+    return render_template('edit_comment.html', comment=comment)
 
 
 @user_bp.route('/comments/<int:comment_id>/delete', methods=['POST'])
 @login_required
 def delete_comment(comment_id):
-    # Retrieve the post from the database and delete it
-    post = Comment.query.get_or_404(comment_id)
+    # Retrieve the comment from the database and delete it
+    comment = Comment.query.get_or_404(comment_id)
     db.session.delete(comment)
     db.session.commit()
     flash('Comment deleted successfully.', 'success')
