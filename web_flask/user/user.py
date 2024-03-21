@@ -149,8 +149,8 @@ def add_comment(post_id):
 @user_bp.route('/comments/<int:comment_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_comment(comment_id):
-    # Retrieve the commentt from the database
-    comment = Comment.query.get_or_404(post_id)
+    # Retrieve the comment from the database
+    comment = Comment.query.get_or_404(comment_id)
 
     if request.method == 'POST':
         # Handle comment editing form submission
