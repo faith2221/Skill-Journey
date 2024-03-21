@@ -10,15 +10,27 @@ user_bp = Blueprint('user', __name__)
 @user_bp.route('/profile')
 @login_required
 def profile():
-    user = current_user
-    return render_template('profile.html', user=user)
+    form = UserProfileForm()
+    if form.validate_on_submit():
+        # Update user profile information
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+
+        # Commit changes to the database
+        db.session.commit()
+        return redirect(url_for('user.profile'))
+    return render_template('profile.html', form=form, user=user)
 
 
 @user_bp.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
-    # Handle account settings form submission
-    return render_template('settings.html')
+    form = UserProfileForm()
+    if form.validate_on_submit():
+        # Handle account settings form submission
+        flash('Settings updated successfully', 'success')
+        return redirect(url_for('user.settings'))
+    return render_template('settings.html', form=form)
 
 
 @user_bp.route('/dashboard')
