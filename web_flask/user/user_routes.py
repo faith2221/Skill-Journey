@@ -5,7 +5,7 @@ from .. import db
 from .forms import UserProfileForm
 from .models.post import Post
 from .models.comment import Comment
-from .models import User
+from .models.user import User
 
 
 user_bp = Blueprint('user', __name__)
