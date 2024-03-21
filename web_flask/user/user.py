@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_required
-from ..forms import UserProfileForm
-from ..models.post import Post
-from ..models.comment import Comment
-from ..models import User
 from .. import db
+from .forms import UserProfileForm
+from .models.post import Post
+from .models.comment import Comment
+from .models import User
+
 
 user_bp = Blueprint('user', __name__)
 
