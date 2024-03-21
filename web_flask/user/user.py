@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for
-from flask_login import current_user, login_required
+from flask_login import current_user, login_required, requests
 from .forms import UserProfileForm
 from .models import User, db
 
@@ -150,7 +150,7 @@ def add_comment(post_id):
 @login_required
 def edit_comment(comment_id):
     # Retrieve the commentt from the database
-    comment = comment.query.get_or_404(post_id)
+    comment = Comment.query.get_or_404(post_id)
 
     if request.method == 'POST':
         # Handle comment editing form submission
