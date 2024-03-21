@@ -45,7 +45,7 @@ def delete_account():
 @login_required
 def add_skill():
     # Logic to add a new skill for the current user
-    return redirection(url_for('profile'))
+    return redirect(url_for('profile'))
 
 
 @user_bp.route('/skills/edit/<int:skill_id>', methods=['GET', 'POST'])
@@ -55,7 +55,7 @@ def edit_skill(skill_id):
     return redirect(url_for('profile'))
 
 
-@user_bp.route('/skills/delete/<int:skill_id>' methods=['POST'])
+@user_bp.route('/skills/delete/<int:skill_id>', methods=['POST'])
 @login_required
 def delete_skill(skill_id):
     # Logic to delete a skill for the current user
@@ -83,8 +83,13 @@ def search_users():
     return render_template('search_users.html')
 
 
-@user_bp.route('/search/skills')
-@login_required
-def search_skills():
-    # Logic to search for skills
-    return render_template('search_skills.html')
+@user_bp.errorhandler(404)
+def page_not_found(e):
+    # Renders the 404.html template and returns the 404 status code
+    return render_template('404.html'), 404
+
+
+@user_bp.errorhandler(500)
+def internal_server_error(e):
+    # Renders the 500.html template and returns the 404 status code
+    return render_template('500.html'), 500
