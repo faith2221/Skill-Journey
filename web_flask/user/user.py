@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import request
 from flask_login import current_user, login_required
 from .. import db
 from .forms import UserProfileForm
@@ -85,7 +86,7 @@ def delete_skill(skill_id):
     return redirect(url_for('profile'))
 
 
-@user_bp.route('//progress/update/<int:skill_id>', methods=['POST'])
+@user_bp.route('/progress/update/<int:skill_id>', methods=['POST'])
 @login_required
 def update_progress(skill_id):
     # Logic to update progress for a skill
