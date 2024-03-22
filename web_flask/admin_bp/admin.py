@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
-from flask request
+from flask import request
 from flask_login import current_user, login_required
 from ..models.engine import db
 from .models import User, Post, Comment
@@ -26,16 +26,16 @@ def manage_users():
 
 @admin_bp.route('/admin/users/<int:user_id>', methods=['GET', 'POST'])
 @login_required
-def edit_users(user_id):
+def edit_user(user_id):
     # Edit user profile page
-    users = User.query.get_or_404(user_id)
+    user = User.query.get_or_404(user_id)
     form = UserProfileForm(obj=user)
     if form.validate_on_submit():
         form.populate_obj(user)
         db.session.commit()
 
         flash('User profile updated successfully.', 'success')
-        retirn redirect(url_for('admin.manage_users'))
+        return redirect(url_for('admin.manage_users'))
     return render_template('admin/edit_user.html', form=form, user=user)
 
 
@@ -58,7 +58,7 @@ def edit_post(post_id):
         db.session.commit()
 
         flash('Post updated successfully.', 'success')
-        retirn redirect(url_for('admin.manage_posts'))
+        return redirect(url_for('admin.manage_posts'))
     return render_template('admin/edit_post.html', form=form, post=post)
 
 
@@ -83,7 +83,7 @@ def manage_comments():
 
 @admin_bp.route('/admin/comments/<int:comment_id>', methods=['GET', 'POST'])
 @login_required
-def edit_comment(post_id):
+def edit_comment(comment_id):
     # Edit comment page
     comment = Comment.query.get_or_404(comment_id)
     form = CommentForm(obj=comment)
@@ -92,7 +92,7 @@ def edit_comment(post_id):
         db.session.commit()
 
         flash('Comment updated successfully.', 'success')
-        retirn redirect(url_for('admin.manage_comments'))
+        return redirect(url_for('admin.manage_comments'))
     return render_template('admin/edit_comment.html', form=form, comment=comment)
 
 
@@ -107,15 +107,15 @@ def delete_comment(comment_id):
     return redirect(url_for('admin.manage_comments'))
 
 
-admin_bp.route('/admin/settings', methods=['GET', 'POST'])
+@admin_bp.route('/admin/settings', methods=['GET', 'POST'])
 @login_required
 def admin_settings():
     # Settings management page
-    if requestmethod == 'POST':
+    if request.method == 'POST':
         # Handle form submission
         flash('Settings updated successfully.', 'success')
         return redirect(url_for('admin.admin_settings'))
-    return render_template('admin/settings.html')
+    return render
 
 
 @admin_bp.route('/admin/analytics')
@@ -136,7 +136,7 @@ def manage_backups():
 @login_required
 def system_management():
     # System administration page
-    return render_template('admin/sytem_management.html')
+    return render_template('admin/system_management.html')
 
 
 @admin_bp.errorhandler(404)
@@ -147,5 +147,5 @@ def page_not_found(e):
 
 @admin_bp.errorhandler(500)
 def internal_server_error(e):
-    # Renders the 500.html template and returns the 404 status code
+    # Renders the 500.html template and returns the 500 status code
     return render_template('500.html'), 500
