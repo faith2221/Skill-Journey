@@ -1,9 +1,12 @@
 from flask import request, redirect, url_for, render_template
 from flask_login import login_user, login_required, logout_user
 from . import app
-from ..models import db
+from ..models.engine import db
 from .models import User
 from .forms import LoginForm, RegistrationForm
+
+
+auth_bp = Blueprint('auth', __name__)
 
 
 # Registration page route
