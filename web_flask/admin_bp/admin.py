@@ -21,7 +21,7 @@ def admin_dashboard():
 def manage_users():
     # User management page
     users = User.query.all()
-    return render_template('admin/manage_users.html', users=user)
+    return render_template('admin/manage_users.html', users=users)
 
 
 @admin_bp.route('/admin/users/<int:user_id>', methods=['GET', 'POST'])
@@ -115,7 +115,7 @@ def admin_settings():
         # Handle form submission
         flash('Settings updated successfully.', 'success')
         return redirect(url_for('admin.admin_settings'))
-    return render
+    return render_template('admin/settings.html')
 
 
 @admin_bp.route('/admin/analytics')
