@@ -21,7 +21,7 @@ def admin_dashboard():
 def manage_users():
     # User management page
     users = User.query.all()
-    return render_template('admin/manage_users.html', user=user)
+    return render_template('admin/manage_users.html', users=user)
 
 
 @admin_bp.route('/admin/users/<int:user_id>', methods=['GET', 'POST'])
