@@ -12,6 +12,7 @@ auth_bp = Blueprint('auth', __name__)
 # Registration page route
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def sign_up():
+    # Initialize the registration form
     form = RegistrationForm()
     if form.validate_on_submit():
         # Process sign_up form data
@@ -22,7 +23,7 @@ def sign_up():
                     password=form.password.data
                     )
         db.session.add(user)
-        db.session.commit(user)
+        db.session.commit()
 
         # Redirect to home page after successful registration
         return redirect(url_for('home_page'))
