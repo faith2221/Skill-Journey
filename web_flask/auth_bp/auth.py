@@ -12,7 +12,8 @@ auth_bp = Blueprint('auth', __name__)
 # Registration page route
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def sign_up():
-    if request.method == 'POST':
+    form = RegistrationForm()
+    if form.validate_on_submit():
         # Process sign_up form data
         user = User(firstname=form.firstname.data,
                     last_name=form.lastname.data,
@@ -49,7 +50,7 @@ def login():
 def logout():
     # Process to logout
     logout_user()
-    return redirect(url_for('logout.html'))
+    return redirect(url_for('home_page'))
 
 
 @auth_bp.errorhandler(404)
