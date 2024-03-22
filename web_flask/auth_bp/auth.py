@@ -13,7 +13,7 @@ auth_bp = Blueprint('auth', __name__)
 # Registration page route
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def sign_up():
-    # Initialize the registration form
+    """ Initialize the registration form."""
     form = RegistrationForm()
     if form.validate_on_submit():
         # Process sign_up form data
@@ -35,6 +35,7 @@ def sign_up():
 # Login page route
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    """ Logic for login."""
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -50,18 +51,18 @@ def login():
 @auth_bp.route('/logout')
 @login_required
 def logout():
-    # Process to logout
+    """ Process to logout."""
     logout_user()
     return redirect(url_for('home_page'))
 
 
 @auth_bp.errorhandler(404)
 def page_not_found(e):
-    # Renders the 404.html template and returns the 404 status code
+    """ Renders the 404.html template and returns the 404 status code."""
     return render_template('404.html'), 404
 
 
 @auth_bp.errorhandler(500)
 def internal_server_error(e):
-    # Renders the 500.html template and returns the 500 status code
+    """ Renders the 500.html template and returns the 500 status code."""
     return render_template('500.html'), 500
