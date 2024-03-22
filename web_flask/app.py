@@ -1,10 +1,18 @@
 from flask import Flask, render_template
 from flask import request, redirect, url_for
 from .models import User
-from .forms import LoginForm, RegistrationForm
-from . import app, db
+from .. import db
+from auth_bp import auth_bp
+from user_bp import user_bp
+from admin_bp import admin_bp
+
 
 app = Flask(__name__)
+
+
+app.register_blueprint(auth_bp)
+app.register_blueprint(user_bp)
+app.register_blueprint(admin_bp)
 
 
 # Landing page route
