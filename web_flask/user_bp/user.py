@@ -208,5 +208,5 @@ def page_not_found(e):
 
 @user_bp.errorhandler(500)
 def internal_server_error(e):
-    # Renders the 500.html template and returns the 404 status code
+    # Renders the 500.html template and returns the 500 status code
     return render_template('500.html'), 500
