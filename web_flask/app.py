@@ -1,10 +1,10 @@
 from flask import Flask, render_template
 from flask import request, redirect, url_for
 from .models import User
-from .. import db
-from auth_bp import auth_bp
-from user_bp import user_bp
-from admin_bp import admin_bp
+from ..models.engine import db
+from auth_bp.auth import auth_bp
+from user_bp.user import user_bp
+from admin_bp.admin import admin_bp
 
 
 app = Flask(__name__)
