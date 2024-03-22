@@ -1,4 +1,4 @@
-from flask import request, redirect, url_for, render_template
+from flask import Blueprint, request, redirect, url_for, render_template
 from flask_login import login_user, login_required, logout_user
 from . import app
 from ..models.engine import db
@@ -10,7 +10,7 @@ auth_bp = Blueprint('auth', __name__)
 
 
 # Registration page route
-@app.route('/register', methods=['GET', 'POST'])
+@auth_bp.route('/register', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
         # Process sign_up form data
@@ -30,8 +30,8 @@ def sign_up():
 
 
 # Login page route
-@app.route('/login', method=['GET', 'POST'])
-def login():
+@auth_bp.route('/login', method=['GET', 'POST'])
+def log_in():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -44,9 +44,9 @@ def login():
 
 
 # Logout page route
-@app.route('/logout')
+@auth_bp.route('/logout')
 @login_required
-def logout():
+def log_out():
     # Process to logout
     logout_user()
     return redirect(url_for('logout.html'))
