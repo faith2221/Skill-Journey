@@ -30,8 +30,8 @@ def sign_up():
 
 
 # Login page route
-@auth_bp.route('/login', method=['GET', 'POST'])
-def log_in():
+@auth_bp.route('/login', methods=['GET', 'POST'])
+def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -46,7 +46,19 @@ def log_in():
 # Logout page route
 @auth_bp.route('/logout')
 @login_required
-def log_out():
+def logout():
     # Process to logout
     logout_user()
     return redirect(url_for('logout.html'))
+
+
+@auth_bp.errorhandler(404)
+def page_not_found(e):
+    # Renders the 404.html template and returns the 404 status code
+    return render_template('404.html'), 404
+
+
+@auth_bp.errorhandler(500)
+def internal_server_error(e):
+    # Renders the 500.html template and returns the 404 status code
+    return render_template('500.html'), 500
