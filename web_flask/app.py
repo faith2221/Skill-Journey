@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 from flask import request, redirect, url_for
 from .models import User
+from .forms import RegistrationForm, LoginForm, UserProfileForm
+from .forms import PostForm, CommentForm
 from ..models.engine import db
 from auth_bp.auth import auth_bp
 from user_bp.user import user_bp
