@@ -1,4 +1,5 @@
-from flask import Blueprint, request, redirect, url_for, render_template
+from flask import Blueprint, redirect, url_for, render_template
+from flask import request
 from flask_login import login_user, login_required, logout_user
 from . import app
 from ..models.engine import db
@@ -62,5 +63,5 @@ def page_not_found(e):
 
 @auth_bp.errorhandler(500)
 def internal_server_error(e):
-    # Renders the 500.html template and returns the 404 status code
+    # Renders the 500.html template and returns the 500 status code
     return render_template('500.html'), 500
