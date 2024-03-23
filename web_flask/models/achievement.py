@@ -3,14 +3,6 @@ from .user import User
 from datetime import datetime
 
 
-user_badge = db.Table(
-        'user_badge',
-        db.Column('user_id', db.Integer, db.ForeignKey('user_id'), 
-                  primary_key=True),
-        db.Column('badge_id', db.Integer, db.ForeignKey('badge.id'),
-                  primary_key=True)
-
-
 class Achievement(db.Model):
     """ Model for achievement."""
     id = db.Column(db.Integer, primary_key=True)
