@@ -72,8 +72,24 @@ def delete_account():
 @user_bp.route('/skills/add', methods=['GET', 'POST'])
 @login_required
 def add_skill():
-    """ Logic to add a new skill for the current user."""
-    return redirect(url_for('profile'))
+    """ Logic to add or retrieve a new skill for the current user."""
+    technical_skills = ['Python', 'Java', 'HTML/CSS','JavaScript', 'SQL']
+    creative_skills = ['Graphic Design', 'Photography', 'Writing',
+                       'Music Production', 'Video Editing']
+    soft_skills = ['Communication', 'Leadership', 'Problem Solving',
+                   'Time Management', 'Teamwork']
+    lifestyle_skills = ['Cooking', 'Yoga', 'Gardening', 'Workouts',
+                        'DIY Projects', 'Traveling']
+    career_skills = ['Networking', 'Resume Writing', 'Public Speaking'
+                     'Interview Skills', 'Professional Development']
+
+    # Renders the template and pass the skills as context variables
+    return render_template('add_skill.html',
+                           technical_skills=technical_skills,
+                           creative_skills=creative_skills,
+                           soft_skills=soft_skills,
+                           lifestyle_skills=lifestyle_skills,
+                           career_skills=career_skills)
 
 
 @user_bp.route('/skills/edit/<int:skill_id>', methods=['GET', 'POST'])
