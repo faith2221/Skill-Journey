@@ -18,6 +18,8 @@ class User(db.Model, UserMixin):
 
     posts = db.relationship('Post', backref='author', lazy=True)
     comments = db.relationship('Comment', backref='author', lazy=True)
+    badges = db.relationship('Badge', secondary='user_badge', backref='users')
+    achievements = db.relationship('Achievement', backref='user', lazy=True)
 
 
     def __repr__(self):
