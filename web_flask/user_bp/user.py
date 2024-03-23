@@ -94,7 +94,22 @@ def delete_skill(skill_id):
 @login_required
 def update_progress(skill_id):
     """ Logic to update progress for a skill."""
+    if milestone_reached:
+        current_user.badges.append(Badge(name='Milestone Badge'))
+        db.session.commit()
     return redirect(url_for('profile'))
+
+
+@user_bp.route('/badges')
+def list_badges():
+    badges = Badge.query.all()
+    return render_template('badges.html', badges=badges)
+
+
+@user_bp.route('/badges')
+def list_user_badges(user_id):
+    user = User.query.get_or_404(user_id)
+    return render_template('user_badges.html', user=user)
 
 
 @user_bp.route('/search/skills')
