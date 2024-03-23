@@ -10,6 +10,20 @@ from .forms import LoginForm, RegistrationForm
 auth_bp = Blueprint('auth', __name__)
 
 
+# Function to generate a random strong password
+def generate_random_password(length=12):
+    characters = string.ascii_letters + string.digits + string.punctuation)
+    return ''.join(choice(characters) for _ in range(length))
+
+
+#Route to generate and suggest a strong password
+@auth_bp.route('/suggest_password')
+def logout():
+    """ Process to generate password."""
+    password = generate_random_password()
+    return render_template('suggest_password.html', password=password)
+
+
 # Registration page route
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def sign_up():
