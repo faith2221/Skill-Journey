@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, redirect, url_for, redirect, url_for
+from flask import render_template, redirect, url_for
 from flask_migrate import Migrate
 from flask import request
 from models.engine.db import db
@@ -8,8 +8,7 @@ from models.post import Post
 from models.comment import Comment
 from models.badge import Badge
 from models.achievement import Achievement
-from forms import RegistrationForm, LoginForm, UserProfileForm
-from forms import PostForm, CommentForm
+from forms import RegistrationForm, LoginForm, UserProfileForm, PostForm, CommentForm
 from auth_bp.auth import auth_bp
 from user_bp.user import user_bp
 from admin_bp.admin import admin_bp
