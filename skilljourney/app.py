@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 
 # Configure database URI
-db_path = 'sqlite:////app.db'
+db_path = 'sqlite:///app.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_path
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
